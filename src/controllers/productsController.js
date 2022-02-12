@@ -9,3 +9,13 @@ export async function getProducts (req, res) {
     res.sendStatus(500);
   }
 }
+
+export async function getCategories (req, res) {
+  try {
+    const categories = await db.collection('categories').find({}).toArray();
+    res.send(categories);
+  } catch (err) {
+    console.log(err);
+    res.sendStatus(500);
+  }
+}
