@@ -49,3 +49,14 @@ export async function deleteCard (req, res) {
         res.sendStatus(500);
     }
 }
+
+export async function addCheckout (req, res) {
+    try {
+        await db.collection('checkout').insertOne(req.body)
+
+        res.sendStatus(201);
+    } catch (err) {
+        console.log(err);
+        res.sendStatus(500);
+    }
+}
