@@ -8,13 +8,8 @@ import productsRouter from "./productsRouter.js";
 const router = Router();
 
 router.use(healthRouter);
-
 router.use(authRouter);
-
-// not authenticated route
-router.use(productsRouter);
-
-//authenticated route
-router.use(checkoutRouter);
+router.use(productsRouter); // not authenticated route
+router.use(checkoutRouter); //authenticated route
 
 export default router;
