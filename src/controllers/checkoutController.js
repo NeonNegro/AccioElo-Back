@@ -30,3 +30,22 @@ export async function getCards (req, res) {
         res.sendStatus(500);
     }
 }
+
+export async function deleteCard (req, res) {
+    try {
+        const id = req.params.id;
+
+        const verifyCard = await db.collection('cards').find({_id: new ObjectId(id)}).toArray();
+
+        if (!verifyCard) {
+            return res.sendStatus(422);
+        }
+
+        await db.collection('cards').deleteOne({_id: new ObjectId(id)});
+
+        res.sendStatus(200);
+    } catch (error) {
+        console.log(error);
+        res.sendStatus(500);
+    }
+}
