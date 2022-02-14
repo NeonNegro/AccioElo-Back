@@ -17,3 +17,16 @@ export async function addCard (req, res) {
         res.sendStatus(500);
     }
 }
+
+export async function getCards (req, res) {
+    try {
+        const userId = res.locals.userId;
+
+        const cards = await db.collection('cards').find({userId: new ObjectId(userId)}).toArray();
+
+        res.send(cards);        
+    } catch (error) {
+        console.log(err);
+        res.sendStatus(500);
+    }
+}
