@@ -7,16 +7,17 @@ export default async function validateCheckout(req, res, next){
     const validation = checkoutSchemma.validate(req.body);
 
     if(validation.error) {
-        return res.sendStatus(422);
+        return res.status(422).send(validation.error);
     }
 
     const verifyCard = await db.collection('cards').findOne({ _id: new ObjectId(req.body.cardId)});
 
-    if (verifyCard) {
+    if (!verifyCard) {
         return res.sendStatus(422);
     }
 
-    if (verifyCard.userId !== res.locals.userId) {
+
+    if (verifyCard.userId.toString() !== res.locals.userId.toString()) {
         return res.sendStatus(401);
     }
 
